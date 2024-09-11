@@ -76,14 +76,14 @@ function App() {
 
   // SET COLUMNS DEPENDING ON SCREEN SIZE
   useEffect(() => {
-    const columns = Math.floor(window.screen.width / 280)
+    const columns = Math.floor(window.innerWidth / 280)
     let finalArr: INote[][] = []
     for(let i = 0 ; i< columns ; i++){
       finalArr.push([])
     }
 
 
-    storedNotes.forEach((e, i) => {
+    storedNotes.reverse().forEach((e, i) => {
       const colNumber = i % columns
       finalArr[colNumber].push(e)
       console.log("final arr : " + finalArr)
