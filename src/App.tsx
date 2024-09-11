@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react'
 import { INote } from './assets/interfaces/INotes'
 import NewNote from './assets/addNote'
 import Note from './assets/notes'
+import "./App.css"
 
 
 function App() {
 
   const [storedNotes, setStoredNotes] = useState<INote[]>([])
   const [nextId, setNextId] = useState<number>(0)
-
+  const [orderedNotes, setOrderedNotes] = useState<INote[][]>([])
 
   function saveNote(id: number, title: string, note: string): void {
 
@@ -46,7 +47,7 @@ function App() {
   useEffect(() => {
     // Local Storage Notes Handle
     const getNotes = localStorage.getItem("notes")
-    console.log(getNotes!=null)
+    console.log(getNotes != null)
     if (getNotes != null) {
       setStoredNotes(JSON.parse(getNotes) as INote[])
     }
@@ -59,9 +60,8 @@ function App() {
   }, [])
 
   // SAVE NOTES TO STORAGE ON CHANGE
-  function saveToLocalNote(){
+  function saveToLocalNote() {
     localStorage.setItem("notes", JSON.stringify(storedNotes))
-    console.log("saved")
   }
 
   useEffect(() => {
@@ -74,6 +74,23 @@ function App() {
     localStorage.setItem("nextID", String(nextId))
   }, [nextId])
 
+  // SET COLUMNS DEPENDING ON SCREEN SIZE
+  useEffect(() => {
+    const columns = Math.floor(window.screen.width / 280)
+    let finalArr: INote[][] = []
+    for(let i = 0 ; i< columns ; i++){
+      finalArr.push([])
+    }
+
+
+    storedNotes.forEach((e, i) => {
+      const colNumber = i % columns
+      finalArr[colNumber].push(e)
+      console.log("final arr : " + finalArr)
+    })
+    setOrderedNotes([...finalArr])
+  },[storedNotes])
+
   return (
     <>
       <h1>Local notes</h1>
@@ -83,16 +100,23 @@ function App() {
           saveNote={saveNote}
         />
 
-        <div className="note-container">
-          {storedNotes.map(e=>
-            <Note
-            key={e.id}
-            id={e.id}
-            title={e.title}
-            note={e.note}
-            delete={removeNote}
-            />
-          )}
+        <div className='note-container'>
+          {orderedNotes.map((column, index) => {
+            return (
+              <div key={index} className='column-wrapper'>
+                {column.map(e =>
+                  <Note
+                    key={e.id}
+                    id={e.id}
+                    title={e.title}
+                    note={e.note}
+                    delete={removeNote}
+                  />
+                )}
+              </div>
+            )
+          })}
+
         </div>
       </section>
     </>

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import AddNote from "./interfaces/IAddNote"
 import { eventOnclick, eventText } from "./types/types"
+import "./addNote.css"
 
 
 function NewNote (props: Readonly<AddNote> ){
@@ -30,8 +31,10 @@ function NewNote (props: Readonly<AddNote> ){
     return(
         <form className="add-note-container">
             <input type="text" name="title" id="note-title" value={title} onChange={handleTitle} placeholder="Title"/>
-            <input type="text" name="note" id="note-title" value={note} onChange={handleNote} placeholder="Type your note here"/>
+            <input type="text" name="note" id="note-text" value={note} onChange={handleNote} placeholder="Type your note here"/>
+            <div className="save-wrapper">
             <button onClick={saveNote}>Save</button>
+            </div>
         </form>
 
     )

@@ -1,0 +1,58 @@
+.note-wrapper{
+    width: 275px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 125);
+
+    & .button-wrapper{
+        display: flex;
+        justify-content: end;
+        padding: 5px 8px;
+    }
+
+    & h3{
+        width: 100%;
+        border: none;
+        border-radius: 10px 10px 0 0;
+        outline: none;
+        background-color: rgb(255, 255, 0);
+        border-bottom: rgb(128, 128, 128) 1px solid;
+        color: rgb(128, 128, 128);
+    }
+    
+    & p{
+        width: 100%;
+        border: none;
+        background-color: rgb(255, 255, 125);
+        color: rgb(5, 5, 5);
+    }
+
+    & h3 , p {
+        box-sizing: border-box;
+        padding: 10px 15px;
+        margin: 0;
+        overflow-wrap: break-word;
+    }
+    & button{
+        height: 25px;
+        width: 25px;
+        padding: 2px;
+        border: 1px gray solid;
+        border-radius: 5px;
+
+
+        & img{
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    & button:hover{
+        background-color: rgb(255, 0, 0);
+    }
+}
+
+.add-note-container:focus{
+    width: 95%;
+    max-width: 300px;
+    border: 1px black double;
+}

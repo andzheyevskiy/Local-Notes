@@ -1,5 +1,5 @@
 import { NoteDisplay } from "./interfaces/INotes"
-
+import "./notes.css"
 
 function Note(props: Readonly<NoteDisplay>) {
 
@@ -10,9 +10,11 @@ function Note(props: Readonly<NoteDisplay>) {
 
     return (
         <div id={`${props.id}`} className="note-wrapper">
-            <h2>{props.title}</h2>
+            <h3>{props.title}</h3>
             <p>{props.note}</p>
+            <div className="button-wrapper">
             <button onClick={removeNote}><img src="./assets/icons/trashcan.png" alt="Delete" /></button>
+            </div>
         </div>
     )
 
