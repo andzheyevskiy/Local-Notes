@@ -47,7 +47,6 @@ function App() {
   useEffect(() => {
     // Local Storage Notes Handle
     const getNotes = localStorage.getItem("notes")
-    console.log(getNotes != null)
     if (getNotes != null) {
       setStoredNotes(JSON.parse(getNotes) as INote[])
     }
@@ -82,11 +81,12 @@ function App() {
       finalArr.push([])
     }
 
+    const sortedArr = storedNotes.sort((a, b) => a.id - b.id)
+    const reversedArr = sortedArr.reverse()
 
-    storedNotes.reverse().forEach((e, i) => {
+    reversedArr.forEach((e, i) => {
       const colNumber = i % columns
       finalArr[colNumber].push(e)
-      console.log("final arr : " + finalArr)
     })
     setOrderedNotes([...finalArr])
   },[storedNotes])
