@@ -9,12 +9,12 @@
     border-radius: 10px;
     background-color: rgb(255, 255, 125);
     
-    & input{
+    & input , textarea{
         box-sizing: border-box;
         padding: 3px 10px;
     }
     
-    & input:focus{
+    & input:focus , textarea:focus{
         border: none;
         outline: none;
     }
@@ -33,6 +33,7 @@
         width: 100%;
         border: none;
         background-color: rgb(255, 255, 125);
+        resize: none;
     }
 
     & .save-wrapper{
