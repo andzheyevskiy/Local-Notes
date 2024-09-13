@@ -1,0 +1,19 @@
+.edit-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .add-note-container {
+        z-index: 100;
+    }
+}
+.exit-edit {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(85, 85, 85, 0.7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    
+}

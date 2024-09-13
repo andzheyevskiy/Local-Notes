@@ -3,6 +3,7 @@ import { INote } from './assets/interfaces/INotes'
 import NewNote from './assets/addNote'
 import Note from './assets/notes'
 import "./App.css"
+import EditNote from './assets/editNote'
 
 
 function App() {
@@ -10,9 +11,10 @@ function App() {
   const [storedNotes, setStoredNotes] = useState<INote[]>([])
   const [nextId, setNextId] = useState<number>(0)
   const [orderedNotes, setOrderedNotes] = useState<INote[][]>([])
+  const [noteToEdit, setNoteToEdit] = useState<INote | null>(null)
 
   function saveNote(id: number, title: string, note: string): void {
-
+    setNoteToEdit(null)
     setStoredNotes(current => {
       const noteIndex = current.findIndex(e => e.id === id)
 
@@ -39,6 +41,11 @@ function App() {
       const noteIndex = current.findIndex(e => e.id === id)
       return [...current.slice(0, noteIndex), ...current.slice(noteIndex + 1)]
     })
+  }
+
+  function editNote(id:number) {
+    const toEdit = storedNotes.find(e=>e.id===id) as INote
+    setNoteToEdit(toEdit)
   }
 
 
@@ -97,7 +104,9 @@ function App() {
       <section className='general-container'>
         <NewNote
           id={nextId}
-          saveNote={saveNote}
+          title=''
+          note=''
+          save={saveNote}
         />
 
         <div className='note-container'>
@@ -111,6 +120,7 @@ function App() {
                     title={e.title}
                     note={e.note}
                     delete={removeNote}
+                    edit={editNote}
                   />
                 )}
               </div>
@@ -118,6 +128,17 @@ function App() {
           })}
 
         </div>
+      </section>
+
+      <section>
+        {noteToEdit && 
+        <EditNote 
+        id={noteToEdit.id}
+        title={noteToEdit.title}
+        note={noteToEdit.note}
+        save={saveNote}
+        />
+        }
       </section>
     </>
   )

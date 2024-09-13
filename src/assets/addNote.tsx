@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react"
-import AddNote from "./interfaces/IAddNote"
-import { eventOnclick, eventText, eventTextArea } from "./types/types"
 import "./addNote.css"
+import { NoteEdit } from "./interfaces/INotes"
+import { eventOnclick, eventText, eventTextArea } from "./types/types"
 
 
-function NewNote (props: Readonly<AddNote> ){
+function NewNote (props: Readonly<NoteEdit> ){
 
     const [title,setTitle] = useState("")
     const [note, setNote] = useState("")
@@ -20,7 +20,7 @@ function NewNote (props: Readonly<AddNote> ){
 
     function saveNote (event:eventOnclick) {
         event.preventDefault()
-        props.saveNote(
+        props.save(
             props.id,
             title,
             note
@@ -28,6 +28,13 @@ function NewNote (props: Readonly<AddNote> ){
         setTitle("")
         setNote("")
     }
+
+    // ALLOW REUSABILITY OF THIS COMPONENT FOR EDITS
+
+    useEffect(()=>{
+        setTitle(props.title)
+        setNote(props.note)
+    },[])
 
     // HANDLE AUTOMATIC HEIGHT FOR THE TEXT AREA
     useEffect(()=>{

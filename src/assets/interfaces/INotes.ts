@@ -1,4 +1,4 @@
-import { deleteNote } from "../types/types";
+import { deleteNote, editNote, notesFunc } from "../types/types";
 
 export interface INote {
     id: number;
@@ -8,4 +8,9 @@ export interface INote {
 
 export interface NoteDisplay extends INote {
     delete: deleteNote
+    edit: editNote
+}
+
+export interface NoteEdit extends INote {
+    save: notesFunc
 }
